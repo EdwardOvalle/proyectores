@@ -12,7 +12,7 @@
     }
     public enum SituacionProyector
     {
-        Bueno,
+        Bueno = 1,
         Regular,
         Malo
     }
