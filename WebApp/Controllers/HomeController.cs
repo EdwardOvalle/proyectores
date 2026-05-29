@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebApp.Models;
 using WebApp.Services;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -9,9 +10,9 @@ namespace WebApp.Controllers
     {
         private IProyectoresService _service;
 
-        public HomeController()
+        public HomeController(IProyectoresService service)
         {
-            _service = new ProyectoresEnMemoriaService();
+            _service = service;
         }
 
         public IActionResult Index()
@@ -22,9 +23,9 @@ namespace WebApp.Controllers
 
         public IActionResult Create()
         {
-            Proyector proyector = new Proyector();
-            proyector.FechaDeAlta = DateTime.Now;
-            return View(proyector);
+            var modelo = new HomeCreateViewModels();
+            modelo.FechaDeAlta = DateTime.Now;
+            return View(modelo);
         }
 
         [HttpPost]
