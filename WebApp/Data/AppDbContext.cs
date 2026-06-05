@@ -15,7 +15,13 @@ namespace WebApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Departamento>().ToTable("Departamentos").HasData(
+            modelBuilder.Entity<Departamento>()
+                .ToTable("Departamentos")
+                //.HasMany(e => e.Proyectores)
+                //.WithOne(e => e.DepartamentoId)
+                //.HasForeingKey(e =>.DepartamentoId)
+                //.IsRequired()
+                .HasData(
                 new Departamento()
                 {
                     Id = 1,
@@ -52,7 +58,13 @@ namespace WebApp.Data
                     Titulo = "DEPARTAMENTO DE CIENCIAS BASICAS"
                 }
                 );
-            modelBuilder.Entity<Proyector>().ToTable("Proyectores");
+
+            modelBuilder.Entity<Proyector>()
+                .ToTable("Proyectores")
+                .HasOne(e => e.Departamento)
+                .WithMany(e => e.Proyectores)
+                .HasForeignKey(e => e.DepartamentoId)
+                .IsRequired();
         }
     }
 }
